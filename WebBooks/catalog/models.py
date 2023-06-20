@@ -31,7 +31,9 @@ class Book(models.Model):
     author = models.ManyToManyField('Author',help_text= "Выберите автора книги",verbose_name="Автор книги")
     summary = models.TextField(max_length=1000,help_text="Введите краткое описание книги",verbose_name="Аннотация книги")
     isbn = models.CharField(max_length=13,help_text="Должно содержать 13 символов",verbose_name="ISBN нкниги")
-
+    def display_author(self):
+        return ', '.join([author.last_name for author in self.author.all()])
+    display_author.short_description = 'Авторы'
 
     def __str__(self):
         return self.title
